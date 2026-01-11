@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analyst Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<h2>🔍 Analyst Dashboard</h2>
+<a href="/logout">Logout</a>
+
+<hr>
+
+<h3>🚨 Alerts Table</h3>
+<table border="1" cellpadding="6">
+    <tr>
+        <th>Time</th>
+        <th>Attack Type</th>
+        <th>Source IP</th>
+        <th>Details</th>
+        <th>Severity</th>
+        <th>Status</th>
+    </tr>
+
+    {% for alert in alerts %}
+    <tr>
+        <td>{{ alert.timestamp }}</td>
+        <td>{{ alert.alert_type }}</td>
+        <td>{{ alert.src_ip }}</td>
+        <td>{{ alert.details }}</td>
+        <td>{{ alert.severity }}</td>
+        <td>{{ alert.status }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<hr>
+
+<h3>📊 Attack Type Distribution</h3>
+<canvas id="attackTypeChart"></canvas>
+
+<h3>🌍 Attacks by Source IP</h3>
+<canvas id="sourceIPChart"></canvas>
+
+<script>
+const attackTypeData = {
+    labels: {{ attack_types.keys() | list }},
+    datasets: [{
+        data: {{ attack_types.values() | list }}
+    }]
+};
+
+const sourceIPData = {
+    labels: {{ source_ips.keys() | list }},
+    datasets: [{
+        data: {{ source_ips.values() | list }}
+    }]
+};
+
+new Chart(document.getElementById("attackTypeChart"), {
+    type: "pie",
+    data: attackTypeData
+});
+
+new Chart(document.getElementById("sourceIPChart"), {
+    type: "bar",
+    data: sourceIPData
+});
+</script>
+
+</body>
+</html>

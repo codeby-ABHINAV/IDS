@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+</head>
+<body>
+
+<h2>🛠️ Admin Dashboard</h2>
+<p>Logged in as: <b>{{ current_user }}</b></p>
+<a href="/logout">Logout</a>
+
+<hr>
+
+<h3>🟢 Active Users (Currently Logged In)</h3>
+
+<table border="1" cellpadding="6">
+    <tr>
+        <th>Username</th>
+        <th>Role</th>
+        <th>Login Time</th>
+    </tr>
+    {% for u in active_users %}
+    <tr>
+        <td>{{ u.username }}</td>
+        <td>{{ u.role }}</td>
+        <td>{{ u.login_time }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<hr>
+
+<h3>👥 All Users</h3>
+
+<table border="1" cellpadding="6">
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Role</th>
+    </tr>
+    {% for user in users %}
+    <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.role }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<hr>
+
+<h3>🚨 Alerts</h3>
+
+<table border="1" cellpadding="6">
+    <tr>
+        <th>ID</th>
+        <th>Time</th>
+        <th>Type</th>
+        <th>Source IP</th>
+        <th>Severity</th>
+        <th>Status</th>
+    </tr>
+    {% for alert in alerts %}
+    <tr>
+        <td>{{ alert.id }}</td>
+        <td>{{ alert.timestamp }}</td>
+        <td>{{ alert.alert_type }}</td>
+        <td>{{ alert.src_ip }}</td>
+        <td>{{ alert.severity }}</td>
+        <td>{{ alert.status }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>
